@@ -1,0 +1,35 @@
+Step 1:  
+Action:     Convert metrics in original dataset and reduce columns to only what is needed
+File:       1_ReduceConvertI80.ipynb
+Output:     ngsim_i_80 table in mysql
+
+Step 2:
+Action:     Restructure dataset with associations.  Save as csv file
+File:       2_processI80.sql
+Output:     2_processedI80.csv
+
+Step 3:
+Action:     Move the restructured data into mysql
+File:       3_sendToSQL.py
+Output:     i_80_processed table in mysql
+
+Step 4:
+Action:     Run initial architecture to weed out outlier sequences
+File:       4_ProcessLossResults.py
+Output:     4_ReportLoss.csv
+
+Step 5:
+Action:     Order the rows of sequence loss data by MSEc (computational graph)
+            Assign percentile values
+File:       ReportLoss.csv
+Output:     None
+
+Step 6:
+Action:     Store the identification values for sequences with a MSEc loss percentile value above 0.95
+File:       6_writeListTotxt.py
+Output:     6_largeLoss.txt
+
+Step 7:
+Action:     Extract the sequences from the restructured data except the sequences in 6_largeLoss.txt
+File:       7_createNewDataset.py
+Output:     ExperimentSet.csv
